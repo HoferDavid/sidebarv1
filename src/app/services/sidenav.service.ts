@@ -17,4 +17,11 @@ export class SidenavService {
   get profilPicWidth(): string {
     return this.collapsed() ? '32px' : '100px';
   }
+
+
+  nestedMenuOpen: WritableSignal<boolean> = signal(false);
+
+  toggleNestedService(): void {
+    this.nestedMenuOpen.set(!this.nestedMenuOpen());
+  }
 }

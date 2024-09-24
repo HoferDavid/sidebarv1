@@ -10,6 +10,7 @@ export type MenuItem = {
   icon: string;
   label: string;
   route?: any;
+  subItems?: MenuItem[];
 }
 
 @Component({
@@ -38,6 +39,23 @@ export class SidenavComponent {
       icon: 'video_library',
       label: 'Content',
       route: 'content',
+      subItems: [
+        {
+          icon: 'play_circle',
+          label: 'Videos',
+          route: 'videos',
+        },
+        {
+          icon: 'playlist_play',
+          label: 'Playlists',
+          route: 'playlists',
+        },
+        {
+          icon: 'post_add',
+          label: 'Posts',
+          route: 'posts',
+        },
+      ],
     },
     {
       icon: 'analytics',
@@ -51,10 +69,16 @@ export class SidenavComponent {
     },
   ]);
 
+
   sidenavWidth = computed(() => this.sidenavService.sidenavWidth);
 
   profilePicSize = computed(() => this.sidenavService.profilPicWidth);
 
   isCollapsed = computed(() => this.sidenavService.collapsed());
 
+  isNestedMenuOpen = computed(() => this.sidenavService.nestedMenuOpen());
+
+  toggleNested() {
+    this.sidenavService.toggleNestedService();
+  }
 }

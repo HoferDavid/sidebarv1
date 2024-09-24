@@ -59,3 +59,7 @@ mat-sidenav,
 mat-sidenav-content {
   transition: all 250ms ease-in-out;
 }
+
+.indented {
+  --mat-list-list-item-leading-icon-start-space: 3rem;
+}
