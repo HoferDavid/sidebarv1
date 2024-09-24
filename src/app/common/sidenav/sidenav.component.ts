@@ -1,9 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { SidenavService } from '../../services/sidenav.service';
 
 export type MenuItem = {
   icon: string;
@@ -25,6 +26,8 @@ export type MenuItem = {
   styleUrl: './sidenav.component.scss',
 })
 export class SidenavComponent {
+  constructor(public sidenavService: SidenavService) {}
+
   menuItems = signal<MenuItem[]>([
     {
       icon: 'dashboard',
@@ -47,4 +50,10 @@ export class SidenavComponent {
       route: 'comment',
     },
   ]);
+
+  sidenavWidth = computed(() => this.sidenavService.sidenavWidth);
+
+  profilePicSize = computed(() => this.sidenavService.profilPicWidth);
+
+  isCollapsed = computed(() => this.sidenavService.collapsed());
 }

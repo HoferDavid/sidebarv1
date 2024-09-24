@@ -1,8 +1,8 @@
 <mat-sidenav-container>
-    <mat-sidenav opened mode="side" [style.width]="'15rem'">
+    <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
         <div class="sidenav-header">
-            <img src="img/supermario.jpg" alt="Photo">
-            <div class="header-text">
+            <img src="img/supermario.jpg" [style.width]="profilePicSize()" alt="Photo">
+            <div class="header-text" [class.hide-header-text]="isCollapsed()">
                 <h2>Marioland</h2>
                 <p>Super Mario</p>
             </div>
@@ -14,7 +14,8 @@
             </a>
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content class="content">
+    <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+        hello
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
