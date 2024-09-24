@@ -45,9 +45,9 @@ export class SidenavComponent {
       route: 'analytics',
     },
     {
-      icon: 'comment',
-      label: 'Comment',
-      route: 'comment',
+      icon: 'comments',
+      label: 'Comments',
+      route: 'comments',
     },
   ]);
 
@@ -56,4 +56,5 @@ export class SidenavComponent {
   profilePicSize = computed(() => this.sidenavService.profilPicWidth);
 
   isCollapsed = computed(() => this.sidenavService.collapsed());
+
 }
