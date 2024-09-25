@@ -5,6 +5,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { SidenavService } from '../../services/sidenav.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 export type MenuItem = {
   icon: string;
@@ -16,6 +17,17 @@ export type MenuItem = {
 @Component({
   selector: 'app-sidenav',
   standalone: true,
+  animations: [
+    trigger('expandContractMenu', [
+      transition(':enter', [
+        style({ opacity: 0, height: '0px' }),
+        animate( '250ms ease-in-out', style({ opacity: 1, height: '*' }))
+      ]),
+      transition(':leave', [
+        animate('250ms ease-in-out', style({ opacity: 0, height: '0px' }))
+      ])
+    ])
+  ],
   imports: [
     MatSidenavModule,
     RouterModule,
@@ -71,14 +83,17 @@ export class SidenavComponent {
 
 
   sidenavWidth = computed(() => this.sidenavService.sidenavWidth);
-
   profilePicSize = computed(() => this.sidenavService.profilPicWidth);
-
   isCollapsed = computed(() => this.sidenavService.collapsed());
 
-  isNestedMenuOpen = computed(() => this.sidenavService.nestedMenuOpen());
 
-  toggleNested() {
-    this.sidenavService.toggleNestedService();
+  nestedMenuOpenIndex = signal<number | null>(null);
+
+  isNestedMenuOpen(index: number): boolean {
+    return this.nestedMenuOpenIndex() === index;
+  }
+
+  toggleNested(index: number): void {
+    this.nestedMenuOpenIndex() === index ? this.nestedMenuOpenIndex.set(null) : this.nestedMenuOpenIndex.set(index);
   }
 }
